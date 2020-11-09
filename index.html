@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Project 4 - Matthew Hallac</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="wrapper">
+        <h1>Facial Keypoint Detection with Neural Networks</h1>
+        <h2>Matthew Hallac</h2>
+        <h3>Overview</h3>
+        <p>
+            For this project, I use neural networks to automatically detect key points on faces.
+        </p>
+        <h3>Nose tip detection</h3>
+        <p>
+            For the first part, given a face I try to detect the tip of the nose. 
+        </p>
+        <div class="gallery">
+            <figure>
+                <img src="outputs/nosegt1.jpg"> 
+                <figcaption>
+                    Nose ground truth example
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/nosegt3.jpg"> 
+                <figcaption>
+                    Nose ground truth
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/nosegt2.jpg"> 
+                <figcaption>
+                    Nose ground truth
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="gallery">
+            <figure>
+                <img src="inputs/obama.jpg"> 
+                <figcaption>
+                    Train and validation accuracy
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/obamacorrespondence.jpg"> 
+                <figcaption>
+                    Correct nose detection
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/obamatri.jpg"> 
+                <figcaption>
+                    Correct nose detection
+                </figcaption>
+            </figure>
+        </div>
+        <div class="gallery">
+            <figure>
+                <img src="inputs/obama.jpg"> 
+                <figcaption>
+                    Incorrect nose detection
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/obamacorrespondence.jpg"> 
+                <figcaption>
+                    Incorrect nose detection
+                </figcaption>
+            </figure>
+        </div>
+
+        <p>
+            In the failure cases above, 
+        </p>
+
+        <h3>Full facial keypoints detection</h3>
+        <p>
+            Now, given a face I try to detect 58 keypoints
+        </p>
+        <div class="gallery">
+            <figure>
+                <img src="inputs/obama.jpg"> 
+                <figcaption>
+                    President Obama
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="inputs/swift.jpg"> 
+                <figcaption>
+                    Taylor Swift
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/obamaswift.jpg"> 
+                <figcaption>
+                    Average Face of Obama and Swift
+                </figcaption>
+            </figure>
+        </div>
+        <h3>Train with a larger dataset</h3>
+        <p>
+            Instead of calculating the mid-way point between two faces, we can use a weighted average to calculate various points in the morphing sequence. If we calculate the weighted average face for a linear set of weights and play them in sequence, we can create a morph video from one face to another! Here is the transition from Obama to Swift
+        </p>
+        <div class="gallery">
+            <figure>
+                <img src="outputs/obamaswiftgif.gif" style="width: 100%;"> 
+        </div>
+
+        <h3>Project 3 automation</h3>
+        <p>
+            Having the ability to automatically generate keypoints makes many things that were not possible in the last project now simple. Given many faces, I can now automatically find the average face, create morphs between faces, and create caricatures.<br>
+            For example, using the faces used to generate <a href="https://www.youtube.com/watch?v=cDOiJji8E4I&feature=youtu.be"> this video </a>, I can find the average CS 194 student.
+        </p>
+        
+    </body>
+</html>
