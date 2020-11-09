@@ -39,19 +39,19 @@
 
         <div class="gallery">
             <figure>
-                <img src="inputs/obama.jpg"> 
+                <img src="outputs/noseloss.jpg"> 
                 <figcaption>
-                    Train and validation accuracy
+                    Training loss over time
                 </figcaption>
             </figure>
             <figure>
-                <img src="outputs/obamacorrespondence.jpg"> 
+                <img src="outputs/nose1.jpg"> 
                 <figcaption>
                     Correct nose detection
                 </figcaption>
             </figure>
             <figure>
-                <img src="outputs/obamatri.jpg"> 
+                <img src="outputs/nose2.jpg"> 
                 <figcaption>
                     Correct nose detection
                 </figcaption>
@@ -59,13 +59,13 @@
         </div>
         <div class="gallery">
             <figure>
-                <img src="inputs/obama.jpg"> 
+                <img src="outputs/failnose1.jpg"> 
                 <figcaption>
                     Incorrect nose detection
                 </figcaption>
             </figure>
             <figure>
-                <img src="outputs/obamacorrespondence.jpg"> 
+                <img src="outputs/failnose2.jpg"> 
                 <figcaption>
                     Incorrect nose detection
                 </figcaption>
@@ -73,7 +73,7 @@
         </div>
 
         <p>
-            In the failure cases above, 
+            In the failure cases above, the nose was incorrectly identified to be below the eye. This could be due to the low amount of data that was used for training.
         </p>
 
         <h3>Full facial keypoints detection</h3>
@@ -82,76 +82,159 @@
         </p>
         <div class="gallery">
             <figure>
-                <img src="outputs/nosegt1.jpg"> 
+                <img src="outputs/ptsgt1.jpg"> 
                 <figcaption>
-                    Nose ground truth example
+                    Ground truth example
                 </figcaption>
             </figure>
             <figure>
-                <img src="outputs/nosegt3.jpg"> 
+                <img src="outputs/ptsgt2.jpg"> 
                 <figcaption>
-                    Nose ground truth example
+                    Ground truth example
                 </figcaption>
             </figure>
             <figure>
-                <img src="outputs/nosegt2.jpg"> 
+                <img src="outputs/ptsgt3.jpg"> 
                 <figcaption>
-                    Nose ground truth example
+                    Ground truth example
                 </figcaption>
             </figure>
         </div>
 
         <div class="gallery">
             <figure>
-                <img src="inputs/obama.jpg"> 
+                <img src="outputs/fullloss.jpg"> 
                 <figcaption>
-                    Train and validation accuracy
+                    Training loss over time
                 </figcaption>
             </figure>
             <figure>
-                <img src="outputs/obamacorrespondence.jpg"> 
+                <img src="outputs/full1.jpg"> 
                 <figcaption>
-                    Correct nose detection
+                    Correct keypoint detection
                 </figcaption>
             </figure>
             <figure>
-                <img src="outputs/obamatri.jpg"> 
+                <img src="outputs/full4.jpg"> 
                 <figcaption>
-                    Correct nose detection
+                    Correct keypoint detection
                 </figcaption>
             </figure>
         </div>
         <div class="gallery">
             <figure>
-                <img src="inputs/obama.jpg"> 
+                <img src="outputs/full2.jpg"> 
                 <figcaption>
-                    Incorrect nose detection
+                    Incorrect keypoint detection
                 </figcaption>
             </figure>
             <figure>
-                <img src="outputs/obamacorrespondence.jpg"> 
+                <img src="outputs/full5.jpg"> 
                 <figcaption>
-                    Incorrect nose detection
+                    Incorrect keypoint detection
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/Subsetlayer2.PNG"> 
+                <figcaption>
+                    Convolution filters layer 2
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="gallery">
+            <figure>
+                <img src="outputs/weights.PNG" style="width:500px"> 
+                <figcaption>
+                    Convolution filters layer 1
                 </figcaption>
             </figure>
         </div>
         <p>
-            The architecture of my example 
+            The architecture of my example was as follows:
+            <ul>
+                <li>Convolution layer from 1 -> 16 with a kernel size 3x3, follwed by a relu and a max pool of size 2x2</li>
+                <li>Convolution layer from 16 -> 16 with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
+                <li>Convolution layer from 16 -> 32 with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
+                <li>Convolution layer from  32 -> 64 with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
+                <li>Convolution layer from 64 -> 64 with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
+                <li>A fully connected layer from 960 -> 960</li>
+                <li>Another fully connected layer from 960 to the output size of 58*2 = 136</li>
+
+            </ul>
+
+            My hyperparameters were to run it for 30 epochs with a learning rate of .001. In the first failure case above, the network detected the eye as the nose, and in the second failure case, I believe the algorithm saw the shadow under the mans chin and followed that to get an incorrect outline of the face.
         </p>
         <h3>Train with a larger dataset</h3>
         <p>
-            Instead of calculating the mid-way point between two faces, we can use a weighted average to calculate various points in the morphing sequence. If we calculate the weighted average face for a linear set of weights and play them in sequence, we can create a morph video from one face to another! Here is the transition from Obama to Swift
+            For the larger dataset, I used the Resnet18 from pytorch with some modifications. The architecture consisted of the following:
+            <ul>
+                <li>Convolution from 1 -> 64 with a kernel size of 7x7 and a stride of 2, with a padding of 3</li>
+                <li>Batching followed by relu and maxpool</li>
+                <li>Layer 1: convolution, batching, relu, convolution, batching repeated twice</li>
+                <li>Layer 2: same as layer 1 with a downsample and additional convolution in the middle</li>
+                <li>Layers 3-4: Repeats of above</li>
+                <li>An average pool, followed by a fully connected layer</li>
+            </ul>
+
+        </p>
+        <p>
+            Here were my results from the test dataset:
         </p>
         <div class="gallery">
             <figure>
-                <img src="outputs/obamaswiftgif.gif" style="width: 100%;"> 
+                <img src="outputs/bigdata1.jpg"> 
+                <figcaption>
+                    Keypoint detection
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/bigdata2.jpg"> 
+                <figcaption>
+                    Keypoint detection
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/bigdata3.jpg"> 
+                <figcaption>
+                    Keypoint detection
+                </figcaption>
+            </figure>
         </div>
 
-        <h3>Project 3 automation</h3>
         <p>
-            Having the ability to automatically generate keypoints makes many things that were not possible in the last project now simple. Given many faces, I can now automatically find the average face, create morphs between faces, and create caricatures.<br>
-            For example, using the faces used to generate <a href="https://www.youtube.com/watch?v=cDOiJji8E4I&feature=youtu.be"> this video </a>, I can find the average CS 194 student.
+            Here are the results on my own images
         </p>
+
+        <div class="gallery">
+            <figure>
+                <img src="outputs/myout1.jpg"> 
+                <figcaption>
+                    Keypoint detection
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/myout2.jpg"> 
+                <figcaption>
+                    Keypoint detection
+                </figcaption>
+            </figure>
+            <figure>
+                <img src="outputs/myout3.jpg"> 
+                <figcaption>
+                    Incorrect keypoint detection
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="gallery">
+            <figure>
+                <img src="outputs/trainlossbig.PNG"> 
+                <figcaption>
+                    Training loss
+                </figcaption>
+            </figure>
+        </div>
         
     </body>
 </html>
