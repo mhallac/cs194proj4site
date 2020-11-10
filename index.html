@@ -14,7 +14,7 @@
         </p>
         <h3>Nose tip detection</h3>
         <p>
-            For the first part, given a face I try to detect the tip of the nose. 
+            For the first part, given a face I try to detect only the tip of the nose. I compressed the images to 80x60 grayscale and used three convolutional layers with kernel size 3x3, with each followed by a max pool and a relu. My number of output channels went from 16 to 20 to 32, and these layers were followed by two fully connected layers from 1280 to 120 to 2, the x and y coordinates of the nose.  
         </p>
         <div class="gallery">
             <figure>
@@ -73,12 +73,12 @@
         </div>
 
         <p>
-            In the failure cases above, the nose was incorrectly identified to be below the eye. This could be due to the low amount of data that was used for training.
+            In the failure cases above, the nose was incorrectly identified to be below the eye. This could be due to the low amount of data that was used for training. The failure case on the left identifies the point as closer to the center of the image than it actually is, and that could be due to the face that for this step, data augmentation was not implemented, and when the face is not perfectly centered the network will get it wrong.
         </p>
 
         <h3>Full facial keypoints detection</h3>
         <p>
-            Now, given a face I try to detect 58 keypoints
+            Now, given a face I try to detect 58 keypoints. I used data augmentation with random rotations and translations and colorjitter.
         </p>
         <div class="gallery">
             <figure>
@@ -153,21 +153,21 @@
         <p>
             The architecture of my example was as follows:
             <ul>
-                <li>Convolution layer from 1 -> 16 with a kernel size 3x3, follwed by a relu and a max pool of size 2x2</li>
-                <li>Convolution layer from 16 -> 16 with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
-                <li>Convolution layer from 16 -> 32 with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
-                <li>Convolution layer from  32 -> 64 with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
-                <li>Convolution layer from 64 -> 64 with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
-                <li>A fully connected layer from 960 -> 960</li>
+                <li>Convolution layer from 1 -> 16 channels with a kernel size 3x3, follwed by a relu and a max pool of size 2x2</li>
+                <li>Convolution layer from 16 -> 16 channels with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
+                <li>Convolution layer from 16 -> 32 channels with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
+                <li>Convolution layer from  32 -> 64 channels with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
+                <li>Convolution layer from 64 -> 64 channels with a kernel size 3x3, followed by a relu and a max pool of size 2x2</li>
+                <li>A fully connected layer from 960 -> 960 channels</li>
                 <li>Another fully connected layer from 960 to the output size of 58*2 = 136</li>
 
             </ul>
 
-            My hyperparameters were to run it for 30 epochs with a learning rate of .001. In the first failure case above, the network detected the eye as the nose, and in the second failure case, I believe the algorithm saw the shadow under the mans chin and followed that to get an incorrect outline of the face.
+            My hyperparameters were to run it for 25 epochs with a learning rate of .001, and I found this to give the optimal results. In the first failure case above, the network detected the eye as the nose, and in the second failure case, I believe the algorithm saw the shadow under the mans chin and followed that to get an incorrect outline of the face. Above you can also see some examples of learned filters from the first and second convolutional layers.
         </p>
         <h3>Train with a larger dataset</h3>
         <p>
-            For the larger dataset, I used the Resnet18 from pytorch with some modifications. The architecture consisted of the following:
+            For the larger dataset, I used the Resnet18 model from pytorch with some modifications. The architecture consisted of the following:
             <ul>
                 <li>Convolution from 1 -> 64 with a kernel size of 7x7 and a stride of 2, with a padding of 3</li>
                 <li>Batching followed by relu and maxpool</li>
@@ -229,7 +229,7 @@
 
         <div class="gallery">
             <figure>
-                <img src="outputs/trainlossbig.PNG"> 
+                <img src="outputs/trainlossbig.jpg"> 
                 <figcaption>
                     Training loss
                 </figcaption>
